@@ -1,0 +1,41 @@
+<div class="flex flex-col items-center justify-center gap-8 rounded-xl border p-8 mt-12 shadow bg-[#F5F5F5]">
+    <div class="w-full flex flex-col items-start h-[70px]">
+        <div *ngFor="let entry of history">
+            {{ entry }}
+        </div>
+    </div>
+    <div class="flex items-end justify-end shadow w-full">
+        <p class="text-5xl">{{ display }}</p>
+    </div>
+    <div class="btn-container">
+        <div class="btn-row">
+            <button class="btn grey" (click)="clearCalculate()">AC</button>
+            <button class="btn grey" (click)="minusMultipy()">+/-</button>
+            <button class="btn grey" (click)="operationProcess('%')">%</button>
+            <button class="btn orange" (click)="operationProcess('/')">÷</button>
+        </div>
+        <div class="btn-row">
+            <button class="btn dark" (click)="numberProcess('7')">7</button>
+            <button class="btn dark" (click)="numberProcess('8')">8</button>
+            <button class="btn dark" (click)="numberProcess('9')">9</button>
+            <button class="btn orange" (click)="operationProcess('x')">x</button>
+        </div>
+        <div class="btn-row">
+            <button class="btn dark" (click)="numberProcess('4')">4</button>
+            <button class="btn dark" (click)="numberProcess('5')">5</button>
+            <button class="btn dark" (click)="numberProcess('6')">6</button>
+            <button class="btn orange" (click)="operationProcess('+')">+</button>
+        </div>
+        <div class="btn-row">
+            <button class="btn dark" (click)="numberProcess('1')">1</button>
+            <button class="btn dark" (click)="numberProcess('2')">2</button>
+            <button class="btn dark" (click)="numberProcess('3')">3</button>
+            <button class="btn orange" (click)="operationProcess('-')">-</button>
+        </div>
+        <div class="btn-row">
+            <button class="dark-btn-0" (click)="numberProcess('0')">0</button>
+            <button class="btn dark" (click)="numberProcess('.')">.</button>
+            <button class="btn orange" (click)="calculate()">=</button>
+        </div>
+    </div>
+</div>
