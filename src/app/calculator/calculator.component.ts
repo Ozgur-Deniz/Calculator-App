@@ -1,10 +1,9 @@
-// calculator.component.ts
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
-  styleUrl: './calculator.component.css',
+  styleUrls: ['./calculator.component.css'],
 })
 export class CalculatorComponent {
   display = '0';
@@ -13,7 +12,8 @@ export class CalculatorComponent {
   currentValue = '0';
   operation: string | null = null;
   clearScreen = false;
-  history: string[] = []
+  justCleared = false;
+  history: string[] = [];
 
   clearCalculate() {
     this.display = '0';
@@ -22,6 +22,7 @@ export class CalculatorComponent {
     this.currentValue = '0';
     this.operation = null;
     this.clearScreen = false;
+    this.justCleared = true; 
   }
 
   numberProcess(value: string) {
@@ -36,6 +37,12 @@ export class CalculatorComponent {
   }
 
   operationProcess(selectedOperation: string) {
+    if (this.justCleared) {
+      this.justCleared = false;
+    } else if (this.prevValue && this.operation && !this.clearScreen) {
+      this.calculate(); 
+    }
+
     this.prevValue = this.display;
     this.operation = selectedOperation;
     this.clearScreen = true;
@@ -46,6 +53,8 @@ export class CalculatorComponent {
   }
 
   calculate() {
+    if (!this.prevValue || !this.operation) return;
+
     this.currentValue = this.display;
 
     const num1 = parseFloat(this.prevValue);
@@ -74,10 +83,12 @@ export class CalculatorComponent {
     const historyOperation = `${num1} ${this.operation} ${num2} = ${this.result}`;
     this.history.unshift(historyOperation);
     if (this.history.length > 3) {
-      this.history.pop(); 
+      this.history.pop();
     }
 
     this.display = isNaN(this.result) ? 'Error' : this.result.toString();
+    this.prevValue = this.display;
     this.clearScreen = true;
+    this.justCleared = false;
   }
 }
