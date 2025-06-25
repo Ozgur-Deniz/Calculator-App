@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CalculatorService } from '../services/calculator.service';
 
 @Component({
   selector: 'app-calculator',
@@ -7,7 +8,6 @@ import { Component } from '@angular/core';
 })
 export class CalculatorComponent {
   display = '0';
-  result = 0;
   prevValue = '';
   currentValue = '0';
   operation: string | null = null;
@@ -15,14 +15,15 @@ export class CalculatorComponent {
   justCleared = false;
   history: string[] = [];
 
+  constructor(private calculatorService: CalculatorService) {}
+
   clearCalculate() {
     this.display = '0';
-    this.result = 0;
     this.prevValue = '';
     this.currentValue = '0';
     this.operation = null;
     this.clearScreen = false;
-    this.justCleared = true; 
+    this.justCleared = true;
   }
 
   numberProcess(value: string) {
@@ -57,37 +58,16 @@ export class CalculatorComponent {
 
     this.currentValue = this.display;
 
-    const num1 = parseFloat(this.prevValue);
-    const num2 = parseFloat(this.currentValue);
+    const { result, history } = this.calculatorService.calculate(
+      this.prevValue,
+      this.currentValue,
+      this.operation
+    );
 
-    switch (this.operation) {
-      case 'x':
-        this.result = num1 * num2;
-        break;
-      case '/':
-        this.result = num2 !== 0 ? num1 / num2 : NaN;
-        break;
-      case '-':
-        this.result = num1 - num2;
-        break;
-      case '+':
-        this.result = num1 + num2;
-        break;
-      case '%':
-        this.result = (num1 * num2) / 100;
-        break;
-      default:
-        return;
-    }
+    this.display = result;
+    this.prevValue = result;
+    this.history = history;
 
-    const historyOperation = `${num1} ${this.operation} ${num2} = ${this.result}`;
-    this.history.unshift(historyOperation);
-    if (this.history.length > 3) {
-      this.history.pop();
-    }
-
-    this.display = isNaN(this.result) ? 'Error' : this.result.toString();
-    this.prevValue = this.display;
     this.clearScreen = true;
     this.justCleared = false;
   }
