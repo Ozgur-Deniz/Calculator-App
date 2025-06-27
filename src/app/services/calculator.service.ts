@@ -14,6 +14,8 @@ export class CalculatorService {
         return first * second;
       case '/':
         return second !== 0 ? first / second : NaN;
+      case '^':  
+        return Math.pow(first, second);
       default:
         return second;
     }

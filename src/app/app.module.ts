@@ -4,14 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CalculatorComponent } from './components/calculator/calculator.component';
 import { HistoryComponent } from './components/history/history.component';
+import { DoubleDigitPipe } from './pipes/double-digit.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    CalculatorComponent
+    CalculatorComponent,
+    DoubleDigitPipe
   ],
   providers: [],
   bootstrap: [AppComponent]

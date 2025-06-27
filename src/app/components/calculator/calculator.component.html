@@ -3,13 +3,13 @@
     <app-history [history]="history"></app-history>
   </div>
   <div class="flex items-end justify-end shadow w-full">
-    <p class="text-5xl">{{ display }}<p>
+    <p class="text-5xl">{{ display | doubleDigit }}<p>
   </div>
   <div class="btn-container">
     <div class="btn-row">
       <button class="btn grey" (click)="buttonClick('AC')">AC</button>
       <button class="btn grey" (click)="buttonClick('\u2190')">←</button>
-      <button class="btn grey" (click)="buttonClick('-')">+/-</button>
+      <button class="btn grey" (click)="buttonClick('^')">^</button>
       <button class="btn orange" (click)="buttonClick('/')">÷</button>
     </div>
 

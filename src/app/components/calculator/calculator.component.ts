@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CalculatorService } from '../../services/calculator.service';
 import { HistoryService } from '../../services/history.service';
 import { HistoryComponent } from '../history/history.component';
+import { DoubleDigitPipe } from '../../pipes/double-digit.pipe';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-calculator',
   standalone: true,
-  imports: [CommonModule, HistoryComponent],
+  imports: [CommonModule, HistoryComponent, DoubleDigitPipe],
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.css'],
   providers: [HistoryService],
@@ -27,7 +28,7 @@ export class CalculatorComponent {
   buttonClick(value: string) {
     if (!isNaN(Number(value))) {
       this.inputDigit(value);
-    } else if (['+', '-', '*', '/'].includes(value)) {
+    } else if (['+', '-', '*', '/', '^'].includes(value)) {
       this.handleOperator(value);
     } else if (value === 'AC') {
       this.clear();
